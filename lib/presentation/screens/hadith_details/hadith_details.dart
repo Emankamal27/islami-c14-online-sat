@@ -1,38 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:islami_app_c14_online_sat/DM/quran_detailsDM.dart';
 import 'package:islami_app_c14_online_sat/core/resources/assets_manager.dart';
 import 'package:islami_app_c14_online_sat/core/resources/colors_manager.dart';
-import 'package:islami_app_c14_online_sat/core/widgets/loading_widget.dart';
-import 'package:islami_app_c14_online_sat/presentation/screens/quran_details/widgets/sura_content.dart';
+import 'package:islami_app_c14_online_sat/presentation/screens/main_layout/tabs/hadith/widgets/hadith_card.dart';
+import 'package:islami_app_c14_online_sat/presentation/screens/main_layout/tabs/hadith/widgets/hadith_content.dart';
 
-class QuranDetails extends StatefulWidget {
-  const QuranDetails({super.key});
+class HadithDetails extends StatefulWidget {
+  const HadithDetails({super.key});
 
   @override
-  State<QuranDetails> createState() => _QuranDetailsState();
+  State<HadithDetails> createState() => _HadithDetailsState();
 }
 
-class _QuranDetailsState extends State<QuranDetails> {
-  late QuranDetailsArguments arguments;
-  String content = "";
+class _HadithDetailsState extends State<HadithDetails> {
+  late HadithDM hadithDM;
 
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    arguments =
-        ModalRoute.of(context)?.settings.arguments as QuranDetailsArguments;
-    loadSuraContent(arguments.index + 1);
+    hadithDM = ModalRoute.of(context)?.settings.arguments as HadithDM;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            arguments.suraDM.suraNameEn,
-          ),
+          title: Text(hadithDM.title),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 14.0),
@@ -49,7 +42,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                     ],
                   ),
                   Text(
-                    arguments.suraDM.suraNameAr,
+                    hadithDM.title,
                     style: TextStyle(
                         color: ColorsManager.gold,
                         fontSize: 24,
@@ -58,32 +51,15 @@ class _QuranDetailsState extends State<QuranDetails> {
                 ],
               ),
               Expanded(
-                child: content.isEmpty
-                    ? const LoadingWidget(color: ColorsManager.gold)
-                    : SuraContent(content: content),
-              ),
+                  child: HadithContent(
+                content: hadithDM.content,
+                contentColor: ColorsManager.gold,
+              )),
               Image.asset(AssetsManager.quranDetailsBottomImage)
             ],
           ),
         )
         //content.isEmpty ? Center(child: CircularProgressIndicator(color: ColorsManager.gold,)) : Text(content),
         );
-  }
-
-  int add(int n1, int n2) {
-    return n1 + n2;
-  }
-
-  void loadSuraContent(int index) async {
-    String filePath = "assets/files/suras/$index.txt";
-    String suraContent = await rootBundle.loadString(filePath);
-    List<String> suraLines = suraContent.trim().split("\n");
-    for (int i = 0; i < suraLines.length; i++) {
-      suraLines[i] += "[${i + 1}]";
-    }
-    await Future.delayed(Duration(milliseconds: 500));
-    setState(() {
-      content = suraLines.join();
-    });
   }
 }

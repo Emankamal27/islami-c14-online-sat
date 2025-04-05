@@ -17,10 +17,15 @@ class AssetsManager {
   static const String onBoarding3 = "$base/onbarding3.png";
   static const String onBoarding4 = "$base/onbarding4.png";
   static const String onBoarding5 = "$base/onbarding5.png";
+  static const String hadithCardBackground = "$base/hadith_card_image.png";
+  static const String hadithCardBottomImage =
+      "$base/hadith_card_bottom_image.png";
   static const String quranDetailsShapeLeft =
       "$base/quran_details_shape_left.png";
   static const String quranDetailsShapeRight =
       "$base/quranDetails_shape_right.png";
   static const String quranDetailsBottomImage =
       "$base/quran_details_bottom_image.png";
+  static const String hadithTabBackgroundImage =
+      "$base/hadith_tab_background.png";
 }
