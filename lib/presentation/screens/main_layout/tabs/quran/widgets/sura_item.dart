@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:islami_app_c14_online_sat/core/resources/assets_manager.dart';
 import 'package:islami_app_c14_online_sat/core/resources/colors_manager.dart';
+import 'package:islami_app_c14_online_sat/core/resources/constant_manager.dart';
 
 class SuraItem extends StatelessWidget {
-  const SuraItem({super.key});
+  const SuraItem({super.key, required this.suraDM, required this.index});
+
+  final SuraDM suraDM;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +18,7 @@ class SuraItem extends StatelessWidget {
           children: [
             Image.asset(AssetsManager.suraNumberBackground),
             Text(
-              "1",
+              "${index + 1}",
               style: TextStyle(
                   fontSize: 12,
                   color: ColorsManager.white,
@@ -28,14 +32,14 @@ class SuraItem extends StatelessWidget {
         Column(
           children: [
             Text(
-              "Al-Fatiha",
+              suraDM.suraNameEn,
               style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: ColorsManager.white),
             ),
             Text(
-              "7 Verses  ",
+              suraDM.versesNumber,
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -45,7 +49,7 @@ class SuraItem extends StatelessWidget {
         ),
         Spacer(),
         Text(
-          "الفاتحه",
+          suraDM.suraNameAr,
           style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,

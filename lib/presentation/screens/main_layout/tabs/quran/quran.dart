@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:islami_app_c14_online_sat/core/resources/assets_manager.dart';
 import 'package:islami_app_c14_online_sat/core/resources/colors_manager.dart';
+import 'package:islami_app_c14_online_sat/core/resources/constant_manager.dart';
 import 'package:islami_app_c14_online_sat/presentation/screens/main_layout/tabs/quran/widgets/most_recent_card.dart';
 import 'package:islami_app_c14_online_sat/presentation/screens/main_layout/tabs/quran/widgets/sura_item.dart';
 
@@ -75,7 +76,10 @@ class Quran extends StatelessWidget {
         indent: 64,
         endIndent: 64,
       ),
-      itemBuilder: (context, index) => SuraItem(),
+      itemBuilder: (context, index) => SuraItem(
+        index: index,
+        suraDM: ConstantManager.suras[index],
+      ),
       itemCount: 114,
     );
   }
