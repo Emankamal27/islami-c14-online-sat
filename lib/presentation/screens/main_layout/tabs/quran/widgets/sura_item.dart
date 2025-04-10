@@ -6,17 +6,21 @@ import 'package:islami_app_c14_online_sat/core/resources/constant_manager.dart';
 import 'package:islami_app_c14_online_sat/core/routes/routes_manager.dart';
 
 class SuraItem extends StatelessWidget {
-  const SuraItem({super.key, required this.suraDM, required this.index});
+  const SuraItem({
+    super.key,
+    required this.suraDM,
+  });
 
   final SuraDM suraDM;
-  final int index;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         Navigator.pushNamed(context, RoutesManager.quranDetails,
-            arguments: QuranDetailsArguments(suraDM: suraDM, index: index));
+            arguments: QuranDetailsArguments(
+              suraDM: suraDM,
+            ));
       },
       child: Row(
         children: [
@@ -25,7 +29,7 @@ class SuraItem extends StatelessWidget {
             children: [
               Image.asset(AssetsManager.suraNumberBackground),
               Text(
-                "${index + 1}",
+                suraDM.suraIndex,
                 style: TextStyle(
                     fontSize: 12,
                     color: ColorsManager.white,

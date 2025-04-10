@@ -23,7 +23,7 @@ class _QuranDetailsState extends State<QuranDetails> {
     super.didChangeDependencies();
     arguments =
         ModalRoute.of(context)?.settings.arguments as QuranDetailsArguments;
-    loadSuraContent(arguments.index + 1);
+    loadSuraContent(arguments.suraDM.suraIndex);
   }
 
   @override
@@ -74,8 +74,8 @@ class _QuranDetailsState extends State<QuranDetails> {
     return n1 + n2;
   }
 
-  void loadSuraContent(int index) async {
-    String filePath = "assets/files/suras/$index.txt";
+  void loadSuraContent(String suraIndex) async {
+    String filePath = "assets/files/suras/$suraIndex.txt";
     String suraContent = await rootBundle.loadString(filePath);
     List<String> suraLines = suraContent.trim().split("\n");
     for (int i = 0; i < suraLines.length; i++) {

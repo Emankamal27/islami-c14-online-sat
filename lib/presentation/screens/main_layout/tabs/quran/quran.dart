@@ -5,8 +5,15 @@ import 'package:islami_app_c14_online_sat/core/resources/constant_manager.dart';
 import 'package:islami_app_c14_online_sat/presentation/screens/main_layout/tabs/quran/widgets/most_recent_card.dart';
 import 'package:islami_app_c14_online_sat/presentation/screens/main_layout/tabs/quran/widgets/sura_item.dart';
 
-class Quran extends StatelessWidget {
+class Quran extends StatefulWidget {
   const Quran({super.key});
+
+  @override
+  State<Quran> createState() => _QuranState();
+}
+
+class _QuranState extends State<Quran> {
+  String searchKey = "";
 
   @override
   Widget build(BuildContext context) {
@@ -67,27 +74,39 @@ class Quran extends StatelessWidget {
   }
 
   Widget buildSurasList() {
+    List<SuraDM> filteredList = ConstantManager.suras;
+    filteredList = filteredList
+        .where(
+          (suraDM) =>
+              suraDM.suraNameEn
+                  .toUpperCase()
+                  .contains(searchKey.toUpperCase()) ||
+              suraDM.suraNameAr.contains(searchKey),
+        )
+        .toList();
+
     return ListView.separated(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      separatorBuilder: (context, index) => Divider(
-        color: ColorsManager.white,
-        thickness: 1,
-        indent: 64,
-        endIndent: 64,
-      ),
-      itemBuilder: (context, index) => SuraItem(
-        index: index,
-        suraDM: ConstantManager.suras[index],
-      ),
-      itemCount: 114,
-    );
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        separatorBuilder: (context, index) => Divider(
+              color: ColorsManager.white,
+              thickness: 1,
+              indent: 64,
+              endIndent: 64,
+            ),
+        itemBuilder: (context, index) => SuraItem(suraDM: filteredList[index]),
+        itemCount: filteredList.length);
   }
 
   Widget buildSearchField() {
     return SizedBox(
       height: 55,
       child: TextField(
+        onChanged: (userInput) {
+          setState(() {
+            searchKey = userInput;
+          });
+        },
         cursorColor: ColorsManager.gold,
         style: TextStyle(
             fontSize: 18,
