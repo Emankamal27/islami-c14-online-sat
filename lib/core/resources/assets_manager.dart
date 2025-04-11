@@ -1,5 +1,6 @@
 class AssetsManager {
   static const String base = "assets/images";
+
   static const String splashLogo = "$base/splash_logo.png";
   static const String branding = "$base/branding_image.png";
   static const String quranIcon = "$base/quran_icon.png";

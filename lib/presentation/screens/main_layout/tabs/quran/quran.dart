@@ -15,6 +15,8 @@ class Quran extends StatefulWidget {
 class _QuranState extends State<Quran> {
   String searchKey = "";
 
+  GlobalKey<MostRecentState> mostRecentKey = GlobalKey<MostRecentState>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +24,7 @@ class _QuranState extends State<Quran> {
           image: DecorationImage(
               image: AssetImage(AssetsManager.quranTabBackground))),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -42,15 +44,8 @@ class _QuranState extends State<Quran> {
               const SizedBox(
                 height: 10,
               ),
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.2,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => SizedBox(
-                      width: MediaQuery.sizeOf(context).width * 0.7,
-                      child: MostRecentCard()),
-                  itemCount: 7,
-                ),
+              MostRecent(
+                key: mostRecentKey,
               ),
               const SizedBox(
                 height: 11,
@@ -94,7 +89,10 @@ class _QuranState extends State<Quran> {
               indent: 64,
               endIndent: 64,
             ),
-        itemBuilder: (context, index) => SuraItem(suraDM: filteredList[index]),
+        itemBuilder: (context, index) => SuraItem(
+              suraDM: filteredList[index],
+              mostRecentKey: mostRecentKey,
+            ),
         itemCount: filteredList.length);
   }
 
