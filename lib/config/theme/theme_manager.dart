@@ -3,6 +3,7 @@ import 'package:islami_app_c14_online_sat/core/resources/colors_manager.dart';
 
 class ThemeManager {
   static final ThemeData light = ThemeData(
+
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
       backgroundColor: ColorsManager.gold,
